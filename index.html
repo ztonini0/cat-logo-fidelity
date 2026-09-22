@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fidelity Turismo — Catálogo de Viagens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0d3c68;--navy2:#18558a;--cyan:#51c4db;--cyanSoft:#edfafd;
+  --ink:#15263a;--text:#2a3d51;--muted:#758598;--bg:#f8fafc;
+  --paper:#fff;--line:#e7edf3;--shadow:0 24px 70px rgba(13,60,104,.11);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,sans-serif;overflow-x:hidden}
+body.lock{overflow:hidden}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.container{width:min(1180px,calc(100% - 36px));margin:auto}
+.header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.header-inner{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-family:Manrope,sans-serif;font-size:25px;font-weight:800;letter-spacing:-.06em;color:var(--navy)}
+.brand span{color:var(--cyan)}
+.header-note{font-size:10px;color:var(--muted)}
+.header-btn{border:0;background:var(--navy);color:#fff;border-radius:999px;padding:11px 16px;font-size:11px;font-weight:800}
+.hero{padding:72px 0 36px;background:
+radial-gradient(circle at 80% 10%,rgba(81,196,219,.12),transparent 28%),
+linear-gradient(180deg,#fff,#f8fbfd)}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:end}
+.eyebrow{display:inline-flex;padding:7px 10px;border-radius:999px;background:var(--cyanSoft);color:var(--navy);font-size:9px;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+h1{font-family:Manrope,sans-serif;font-size:clamp(48px,6.8vw,88px);line-height:.95;letter-spacing:-.065em;color:var(--ink);margin:18px 0 18px}
+h1 span{color:var(--navy2);font-weight:500}
+.hero p{max-width:650px;color:var(--muted);font-size:16px;line-height:1.75;margin:0}
+.hero-card{background:linear-gradient(145deg,#0d3c68,#1c648d);border-radius:30px;color:#fff;padding:30px;min-height:250px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.hero-card:after{content:"";position:absolute;width:270px;height:270px;border-radius:50%;background:rgba(141,224,236,.15);right:-95px;top:-100px}
+.hero-card>*{position:relative;z-index:1}
+.hero-card small{text-transform:uppercase;letter-spacing:.11em;font-size:9px;font-weight:800;color:#b8eff6}
+.hero-card h2{font-family:Manrope,sans-serif;font-size:30px;letter-spacing:-.04em;margin:13px 0 12px}
+.hero-card p{font-size:12px;color:rgba(255,255,255,.68)}
+.live{display:flex;align-items:center;gap:9px;margin-top:24px;font-size:10px;font-weight:700;color:rgba(255,255,255,.78)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#88e3ce;box-shadow:0 0 0 6px rgba(136,227,206,.12);animation:pulse 1.8s ease infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 12px rgba(136,227,206,0)}}
+.toolbar{margin-top:30px;display:grid;grid-template-columns:1fr 220px auto;gap:9px;background:#fff;padding:12px;border:1px solid var(--line);border-radius:22px;box-shadow:0 12px 35px rgba(13,60,104,.07)}
+.field{background:#f8fafc;border-radius:14px;padding:9px 13px}
+.field label{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:800;margin-bottom:4px}
+.field input,.field select{width:100%;border:0;background:transparent;outline:0;color:var(--text);font-weight:700}
+.search-btn{border:0;border-radius:14px;background:var(--navy);color:white;font-weight:800;padding:0 22px}
+
+
+/* BLACK FRIDAY — aparece automaticamente em novembro.
+   Para pré-visualizar a qualquer momento, abra a página com ?blackfriday=1 */
+.black-friday{
+  margin:34px 0 30px;
+  background:
+    radial-gradient(circle at 88% 20%,rgba(81,196,219,.18),transparent 22%),
+    linear-gradient(135deg,#070b10 0%,#111a24 55%,#0d3c68 140%);
+  color:#fff;
+  border-radius:28px;
+  padding:30px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 24px 70px rgba(4,11,18,.18);
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:28px;
+  align-items:center;
+}
+.black-friday::before{
+  content:"";
+  position:absolute;
+  width:260px;height:260px;border-radius:50%;
+  background:rgba(81,196,219,.10);
+  right:-80px;top:-100px;
+  filter:blur(2px);
+}
+.bf-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:9px;
+  letter-spacing:.14em;
+  font-weight:800;
+  text-transform:uppercase;
+  color:#9fe9f3;
+}
+.bf-title{
+  font-family:Manrope,sans-serif;
+  font-size:clamp(34px,4.5vw,55px);
+  line-height:1;
+  letter-spacing:-.055em;
+  margin:12px 0 12px;
+}
+.bf-copy{
+  color:rgba(255,255,255,.67);
+  font-size:12px;
+  line-height:1.65;
+  max-width:620px;
+}
+.bf-action{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:10px;
+  position:relative;
+  z-index:1;
+}
+.bf-countdown{
+  font-family:Manrope,sans-serif;
+  font-size:28px;
+  font-weight:700;
+  letter-spacing:-.04em;
+}
+.bf-countdown small{
+  display:block;
+  font-family:Inter,sans-serif;
+  font-size:8px;
+  font-weight:800;
+  color:rgba(255,255,255,.48);
+  text-transform:uppercase;
+  letter-spacing:.11em;
+  margin-bottom:5px;
+}
+.bf-btn{
+  border:0;
+  border-radius:999px;
+  background:#fff;
+  color:#0d3c68;
+  padding:12px 17px;
+  font-size:10px;
+  font-weight:800;
+  transition:.2s ease;
+}
+.bf-btn:hover{transform:translateY(-2px)}
+.card.black-card{
+  border-color:#192735;
+  box-shadow:0 20px 55px rgba(5,13,20,.12);
+}
+.card.black-card .badge{
+  background:#0a1017;
+  color:#a9edf5;
+}
+.card.black-card .interest{
+  background:#0d3c68;
+  color:#fff;
+}
+@media(max-width:760px){
+  .black-friday{grid-template-columns:1fr;padding:24px}
+}
+
+.catalog{padding:64px 0 100px}
+.catalog-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:24px}
+.catalog-head h2{font-family:Manrope,sans-serif;color:var(--ink);font-size:40px;letter-spacing:-.05em;margin:10px 0 0}
+.catalog-head p{max-width:420px;font-size:11px;color:var(--muted);line-height:1.6;margin:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.chip{border:1px solid var(--line);background:#fff;color:var(--muted);padding:9px 13px;border-radius:999px;font-size:10px;font-weight:800}
+.chip.active,.chip:hover{background:var(--navy);border-color:var(--navy);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:25px;overflow:hidden;transition:.3s ease}
+.card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.card-img{height:260px;position:relative;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:.45s ease}
+.card:hover .card-img img{transform:scale(1.04)}
+.badge{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.93);backdrop-filter:blur(8px);padding:7px 10px;border-radius:999px;color:var(--navy);font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.card-body{padding:20px}
+.dest{font-size:9px;color:var(--cyan);font-weight:800;text-transform:uppercase;letter-spacing:.1em}
+.card h3{font-family:Manrope,sans-serif;font-size:22px;letter-spacing:-.035em;color:var(--ink);margin:7px 0 9px}
+.meta{font-size:9px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.card-footer{border-top:1px solid var(--line);padding-top:15px;display:flex;align-items:end;justify-content:space-between;gap:12px}
+.price small{display:block;color:var(--muted);font-size:8px}.price strong{display:block;color:var(--navy);font-size:24px;margin-top:2px}
+.interest{border:0;border-radius:999px;padding:11px 14px;background:var(--cyanSoft);color:var(--navy);font-size:10px;font-weight:800;transition:.2s}
+.interest:hover{background:var(--cyan);transform:translateY(-2px)}
+.empty{text-align:center;color:var(--muted);padding:50px 20px}
+.hidden{display:none!important}
+.overlay{position:fixed;inset:0;z-index:100;background:rgba(8,25,41,.48);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:.28s ease}
+.overlay.show{opacity:1;pointer-events:auto}
+.drawer{position:absolute;top:18px;right:18px;bottom:18px;width:min(430px,calc(100% - 36px));background:#fff;border-radius:28px;overflow:auto;box-shadow:0 35px 110px rgba(0,0,0,.28);transform:translateX(108%);transition:.38s cubic-bezier(.2,.75,.2,1)}
+.overlay.show .drawer{transform:none}
+.close{position:absolute;right:15px;top:15px;z-index:2;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.9);color:var(--navy);font-size:20px}
+.drawer-img{height:245px}.drawer-img img{width:100%;height:100%;object-fit:cover}
+.drawer-body{padding:25px}
+.drawer-kicker{font-size:9px;color:var(--cyan);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.drawer h3{font-family:Manrope,sans-serif;font-size:30px;letter-spacing:-.045em;color:var(--ink);margin:7px 0 8px}
+.drawer-desc{font-size:12px;color:var(--muted);line-height:1.65}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0}
+.info div{background:#f7fafc;border-radius:14px;padding:13px}
+.info span{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.08em}
+.info strong{display:block;margin-top:4px;color:var(--ink);font-size:11px}
+.agent{background:linear-gradient(135deg,#0d3c68,#18558a);border-radius:20px;padding:19px;color:#fff;margin-top:18px}
+.agent small{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#b8eff6;font-weight:800}
+.agent h4{font-family:Manrope,sans-serif;font-size:20px;margin:7px 0 6px}
+.agent p{font-size:10px;color:rgba(255,255,255,.67);line-height:1.5;margin:0}
+.agent-btn{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:15px;background:#fff;color:var(--navy);padding:13px 14px;border-radius:14px;font-size:11px;font-weight:800}
+.demo-note{font-size:8px!important;color:rgba(255,255,255,.48)!important;margin-top:10px!important}
+footer{padding:30px 0;background:#fff;border-top:1px solid var(--line)}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.footer-note{font-size:9px;color:var(--muted)}
+[data-reveal]{opacity:0;transform:translateY(17px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.75,.2,1)}
+[data-reveal].visible{opacity:1;transform:none}
+
+/* =========================================================
+   MOTION POLISH — animações fluidas, leves e consistentes
+   ========================================================= */
+body{
+  background-size:140% 140%;
+  animation:pageBreath 18s ease-in-out infinite alternate;
+}
+.header{
+  animation:headerDrop .7s cubic-bezier(.2,.75,.2,1) both;
+  transition:box-shadow .3s ease, background .3s ease, border-color .3s ease;
+}
+.header.scrolled{
+  background:rgba(255,255,255,.94);
+  box-shadow:0 12px 40px rgba(13,60,104,.07);
+}
+.brand{
+  position:relative;
+  transition:transform .25s ease;
+}
+.brand:hover{transform:translateY(-1px)}
+.brand::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:-7px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  transform:scaleX(.15);
+  opacity:.4;
+  transition:transform .35s ease,opacity .35s ease;
+}
+.brand:hover::after{transform:scaleX(.9);opacity:.85}
+.header-btn,.search-btn,.bf-btn,.interest,.agent-btn{
+  position:relative;
+  overflow:hidden;
+  transform:translateZ(0);
+  transition:transform .25s cubic-bezier(.2,.75,.2,1),box-shadow .25s ease,background .25s ease,color .25s ease;
+}
+.header-btn::after,.search-btn::after,.bf-btn::after,.agent-btn::after{
+  content:"";
+  position:absolute;inset:-2px auto -2px -55%;
+  width:42%;
+  transform:skewX(-18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
+  transition:left .6s ease;
+  pointer-events:none;
+}
+.header-btn:hover::after,.search-btn:hover::after,.bf-btn:hover::after,.agent-btn:hover::after{left:125%}
+.header-btn:hover,.search-btn:hover,.agent-btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(13,60,104,.16)}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+}
+.hero::before,.hero::after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+  filter:blur(2px);
+}
+.hero::before{
+  width:460px;height:460px;
+  right:-130px;top:-170px;
+  background:radial-gradient(circle,rgba(81,196,219,.16),rgba(81,196,219,0) 66%);
+  animation:orbFloat 12s ease-in-out infinite;
+}
+.hero::after{
+  width:300px;height:300px;
+  left:-120px;bottom:-145px;
+  background:radial-gradient(circle,rgba(24,85,138,.08),rgba(24,85,138,0) 68%);
+  animation:orbFloatAlt 15s ease-in-out infinite;
+}
+.hero-grid,.hero .container{position:relative;z-index:1}
+.hero h1{
+  animation:titleIn .9s .08s cubic-bezier(.2,.75,.2,1) both;
+}
+.hero h1 span{
+  display:inline-block;
+  animation:softFloat 7s 1.1s ease-in-out infinite;
+}
+.hero-card{
+  transition:transform .42s cubic-bezier(.2,.75,.2,1),box-shadow .42s ease;
+  animation:cardFloat 8s 1.2s ease-in-out infinite;
+}
+.hero-card:hover{
+  transform:translateY(-6px) rotate(.25deg);
+  box-shadow:0 32px 90px rgba(13,60,104,.17);
+}
+.hero-card::before{
+  content:"";
+  position:absolute;
+  width:130px;height:210%;
+  top:-55%;left:-45%;
+  transform:rotate(20deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);
+  animation:heroSheen 8s 2s ease-in-out infinite;
+}
+
+.toolbar{
+  transition:transform .35s cubic-bezier(.2,.75,.2,1),box-shadow .35s ease,border-color .35s ease;
+}
+.toolbar:hover{
+  transform:translateY(-3px);
+  box-shadow:0 20px 48px rgba(13,60,104,.10);
+}
+.field{
+  transition:background .25s ease,box-shadow .25s ease,transform .25s ease;
+}
+.field:focus-within{
+  background:#fff;
+  transform:translateY(-1px);
+  box-shadow:0 0 0 3px rgba(81,196,219,.12);
+}
+.search-btn:hover{background:var(--navy2)}
+
+.black-friday{
+  transition:transform .4s cubic-bezier(.2,.75,.2,1),box-shadow .4s ease;
+}
+.black-friday:hover{
+  transform:translateY(-4px);
+  box-shadow:0 32px 90px rgba(4,11,18,.24);
+}
+.black-friday::after{
+  content:"";
+  position:absolute;
+  top:-80%;bottom:-80%;
+  width:120px;
+  left:-24%;
+  transform:rotate(18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
+  animation:blackSweep 7s 1.8s ease-in-out infinite;
+}
+.bf-kicker{animation:bfPulse 3.2s ease-in-out infinite}
+.bf-action{animation:softFloat 6s ease-in-out infinite}
+
+.chip{
+  transition:transform .22s ease,background .22s ease,color .22s ease,border-color .22s ease,box-shadow .22s ease;
+}
+.chip:hover{transform:translateY(-2px)}
+.chip.active{box-shadow:0 8px 22px rgba(13,60,104,.15)}
+
+.card{
+  position:relative;
+  isolation:isolate;
+  transition:transform .38s cubic-bezier(.2,.75,.2,1),box-shadow .38s ease,border-color .3s ease;
+}
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  opacity:0;
+  background:linear-gradient(145deg,rgba(81,196,219,.05),transparent 42%);
+  transition:opacity .3s ease;
+}
+.card:hover{
+  transform:translateY(-8px) scale(1.008);
+  box-shadow:0 30px 78px rgba(13,60,104,.13);
+  border-color:#d9e6ef;
+}
+.card:hover::after{opacity:1}
+.card-img img{transition:transform .7s cubic-bezier(.2,.75,.2,1),filter .45s ease}
+.card:hover .card-img img{transform:scale(1.065);filter:saturate(1.04)}
+.badge{transition:transform .3s ease,box-shadow .3s ease}
+.card:hover .badge{transform:translateY(-2px);box-shadow:0 9px 22px rgba(0,0,0,.08)}
+.card h3,.dest,.meta,.price,.interest{transition:transform .3s ease,opacity .3s ease}
+.card:hover h3{transform:translateY(-2px)}
+.card:hover .interest{transform:translateY(-2px) translateX(-1px)}
+.card.black-card{animation:blackCardGlow 4s ease-in-out infinite alternate}
+
+.overlay{
+  transition:opacity .35s ease,backdrop-filter .35s ease;
+}
+.drawer{
+  transition:transform .52s cubic-bezier(.16,.84,.3,1),box-shadow .4s ease;
+}
+.overlay.show .drawer{box-shadow:0 42px 130px rgba(0,0,0,.32)}
+.drawer-img{overflow:hidden}
+.drawer-img img{
+  transform:scale(1.04);
+  transition:transform .8s cubic-bezier(.2,.75,.2,1);
+}
+.overlay.show .drawer-img img{transform:scale(1)}
+.drawer-body>*{
+  opacity:0;
+  transform:translateY(12px);
+}
+.overlay.show .drawer-body>*{
+  animation:drawerItemIn .48s cubic-bezier(.2,.75,.2,1) forwards;
+}
+.overlay.show .drawer-body>*:nth-child(1){animation-delay:.10s}
+.overlay.show .drawer-body>*:nth-child(2){animation-delay:.14s}
+.overlay.show .drawer-body>*:nth-child(3){animation-delay:.18s}
+.overlay.show .drawer-body>*:nth-child(4){animation-delay:.22s}
+.overlay.show .drawer-body>*:nth-child(5){animation-delay:.26s}
+.info div{
+  transition:transform .25s ease,background .25s ease,box-shadow .25s ease;
+}
+.info div:hover{transform:translateY(-2px);background:#fff;box-shadow:0 9px 22px rgba(13,60,104,.07)}
+.agent{
+  position:relative;
+  overflow:hidden;
+}
+.agent::after{
+  content:"";
+  position:absolute;width:180px;height:180px;border-radius:50%;
+  right:-85px;bottom:-100px;
+  background:rgba(81,196,219,.11);
+  animation:orbFloatAlt 9s ease-in-out infinite;
+}
+.agent>*{position:relative;z-index:1}
+.agent-btn:hover{box-shadow:0 12px 28px rgba(0,0,0,.13)}
+
+footer{
+  transition:background .3s ease;
+}
+.footer-inner{
+  transition:transform .35s ease;
+}
+.footer-inner:hover{transform:translateY(-2px)}
+
+[data-reveal]{
+  opacity:0;
+  transform:translateY(24px) scale(.992);
+  filter:blur(4px);
+  transition:
+    opacity .72s cubic-bezier(.2,.75,.2,1),
+    transform .72s cubic-bezier(.2,.75,.2,1),
+    filter .72s ease;
+  transition-delay:var(--reveal-delay,0ms);
+}
+[data-reveal].visible{
+  opacity:1;
+  transform:none;
+  filter:blur(0);
+}
+
+@keyframes headerDrop{
+  from{opacity:0;transform:translateY(-14px)}
+  to{opacity:1;transform:none}
+}
+@keyframes titleIn{
+  from{opacity:0;transform:translateY(28px);filter:blur(7px)}
+  to{opacity:1;transform:none;filter:blur(0)}
+}
+@keyframes pageBreath{
+  from{background-position:0% 0%}
+  to{background-position:100% 80%}
+}
+@keyframes orbFloat{
+  0%,100%{transform:translate3d(0,0,0)}
+  50%{transform:translate3d(-28px,24px,0)}
+}
+@keyframes orbFloatAlt{
+  0%,100%{transform:translate3d(0,0,0)}
+  50%{transform:translate3d(24px,-18px,0)}
+}
+@keyframes softFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-4px)}
+}
+@keyframes cardFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
+}
+@keyframes heroSheen{
+  0%,68%{left:-45%;opacity:0}
+  76%{opacity:1}
+  90%,100%{left:125%;opacity:0}
+}
+@keyframes blackSweep{
+  0%,62%{left:-24%;opacity:0}
+  70%{opacity:1}
+  88%,100%{left:125%;opacity:0}
+}
+@keyframes bfPulse{
+  0%,100%{opacity:.76}
+  50%{opacity:1}
+}
+@keyframes blackCardGlow{
+  from{box-shadow:0 18px 50px rgba(5,13,20,.10)}
+  to{box-shadow:0 24px 66px rgba(13,60,104,.16)}
+}
+@keyframes drawerItemIn{
+  to{opacity:1;transform:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
+  }
+  [data-reveal]{opacity:1!important;transform:none!important;filter:none!important}
+}
+
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.toolbar{grid-template-columns:1fr}.search-btn{padding:14px}.header-note{display:none}}
+@media(max-width:620px){h1{font-size:52px}.grid{grid-template-columns:1fr}.catalog-head{flex-direction:column;align-items:flex-start}.header-btn{display:none}.drawer{top:auto;left:10px;right:10px;bottom:10px;width:auto;max-height:88vh;transform:translateY(108%)}.overlay.show .drawer{transform:none}.footer-inner{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a class="brand" href="#">Fidelity <span>Turismo</span></a>
+    <div class="header-note">Catálogo de viagens • demonstração</div>
+    <button class="header-btn" onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})">Ver viagens</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div data-reveal>
+      <span class="eyebrow">Catálogo Fidelity</span>
+      <h1>Escolha a viagem.<br><span>Depois fale com um agente.</span></h1>
+      <p>Uma vitrine simples e elegante para visualizar as oportunidades da Fidelity e, quando alguma viagem fizer sentido, falar com um agente já com a oferta escolhida.</p>
+    </div>
+
+    <aside class="hero-card" data-reveal>
+      <small>Catálogo sempre organizado</small>
+      <h2>As ofertas ficam fáceis de encontrar.</h2>
+      <p>O cliente não precisa procurar em várias mensagens. As oportunidades ficam organizadas em uma única vitrine, fácil de consultar e sempre pronta para levar ao atendimento.</p>
+      <div class="live"><span class="live-dot"></span> ofertas demonstrativas organizadas na vitrine</div>
+    </aside>
+  </div>
+
+  <div class="container">
+    <div class="toolbar" data-reveal>
+      <div class="field">
+        <label>Destino</label>
+        <input id="searchInput" placeholder="Maceió, Gramado, Buenos Aires...">
+      </div>
+      <div class="field">
+        <label>Categoria</label>
+        <select id="categorySelect">
+          <option value="">Todas</option>
+          <option>Praia</option>
+          <option>Romântico</option>
+          <option>Família</option>
+          <option>Internacional</option>
+          <option>Aventura</option>
+        </select>
+      </div>
+      <button class="search-btn" id="searchBtn">Buscar</button>
+    </div>
+  </div>
+</section>
+
+<section class="catalog" id="catalogo">
+  <div class="container">
+    <div class="catalog-head" data-reveal>
+      <div>
+        <span class="eyebrow">Catálogo Fidelity</span>
+        <h2>Encontre sua próxima viagem.</h2>
+      </div>
+      <p>Valores, datas e condições abaixo são apenas demonstrativos. Na versão real, entram as ofertas enviadas pela equipe da Fidelity.</p>
+    </div>
+<section class="black-friday hidden" id="blackFridayBlock" data-reveal>
+      <div style="position:relative;z-index:1">
+        <div class="bf-kicker">✦ Black Friday Fidelity</div>
+        <h2 class="bf-title">As oportunidades que merecem atenção ficam aqui.</h2>
+        <p class="bf-copy">
+          Durante a Black Friday, o catálogo pode ganhar uma área especial para reunir as condições
+          mais fortes do período sem misturar tudo com as demais viagens.
+        </p>
+      </div>
+      <div class="bf-action">
+        <div class="bf-countdown" id="bfCountdown">
+          <small>Período especial</small>
+          Ofertas por tempo limitado
+        </div>
+        <button class="bf-btn" id="bfSeeOffers">Ver ofertas da Black Friday</button>
+      </div>
+    </section>
+
+    <div class="chips" data-reveal>
+      <button class="chip active" data-cat="">Todas</button>
+      <button class="chip" data-cat="Praia">Praia</button>
+      <button class="chip" data-cat="Romântico">Romântico</button>
+      <button class="chip" data-cat="Família">Família</button>
+      <button class="chip" data-cat="Internacional">Internacional</button>
+      <button class="chip" data-cat="Aventura">Aventura</button>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <div class="empty hidden" id="empty">Nenhuma viagem encontrada com esses filtros.</div>
+  </div>
+</section>
+
+<footer data-reveal>
+  <div class="container footer-inner">
+    <div class="brand" style="font-size:20px">Fidelity <span>Turismo</span></div>
+    <div class="footer-note">Demonstração conceitual de catálogo digital • conteúdo ilustrativo.</div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay">
+  <aside class="drawer">
+    <button class="close" id="close">×</button>
+    <div class="drawer-img"><img id="dImage" alt=""></div>
+    <div class="drawer-body">
+      <div class="drawer-kicker" id="dDest"></div>
+      <h3 id="dTitle"></h3>
+      <p class="drawer-desc" id="dDesc"></p>
+
+      <div class="info">
+        <div><span>Período</span><strong id="dPeriod"></strong></div>
+        <div><span>Hospedagem</span><strong id="dHotel"></strong></div>
+        <div><span>Categoria</span><strong id="dCat"></strong></div>
+        <div><span>A partir de</span><strong id="dPrice"></strong></div>
+      </div>
+
+      <div class="agent">
+        <small>Gostou desta viagem?</small>
+        <h4>Fale com um agente da Fidelity.</h4>
+        <p>O atendimento já começa com o destino escolhido, sem precisar explicar qual oferta você viu.</p>
+        <a class="agent-btn" id="agentBtn" target="_blank" rel="noopener">💬 Chamar um agente</a>
+        <p class="demo-note">Para abrir diretamente o WhatsApp, basta preencher o número oficial na constante WHATSAPP_NUMBER do código.</p>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+/*
+  COLOQUE AQUI O WHATSAPP OFICIAL DA FIDELITY:
+  Exemplo: const WHATSAPP_NUMBER = "5511999999999";
+  Use apenas números, com 55 + DDD + telefone.
+
+  Enquanto estiver vazio, o botão usa o Linktree atual da Fidelity.
+*/
+const WHATSAPP_NUMBER = "";
+const FALLBACK_CONTACT_URL = "https://linktr.ee/fidelityturismo";
+
+
+/*
+  BLACK FRIDAY
+  - automática durante novembro;
+  - para mostrar a versão de demonstração antes de novembro, abra:
+    index.html?blackfriday=1
+  - para esconder mesmo em novembro:
+    index.html?blackfriday=0
+*/
+const urlParams = new URLSearchParams(window.location.search);
+const bfPreview = urlParams.get("blackfriday");
+const today = new Date();
+const BLACK_FRIDAY_ACTIVE =
+  bfPreview === "1" ? true :
+  bfPreview === "0" ? false :
+  today.getMonth() === 10; // novembro = 10
+
+let blackFridayOnly = false;
+
+const trips = [
+ {id:1,blackFriday:true,destination:"Maceió",title:"Maceió • 5 noites + aéreo",category:"Praia",price:1899,period:"Datas demonstrativas",hotel:"Hotel 4 estrelas",image:"https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1200&q=88",description:"Uma opção para quem busca praia, descanso e praticidade em um pacote organizado."},
+ {id:2,blackFriday:false,destination:"Gramado",title:"Gramado • experiência a dois",category:"Romântico",price:2390,period:"Datas demonstrativas",hotel:"Hospedagem com café",image:"https://images.unsplash.com/photo-1605537964076-3cb0ea2ff329?auto=format&fit=crop&w=1200&q=88",description:"Serra, gastronomia e uma experiência pensada para uma viagem mais tranquila."},
+ {id:3,blackFriday:true,destination:"Buenos Aires",title:"Buenos Aires • 4 noites",category:"Internacional",price:2790,period:"Datas demonstrativas",hotel:"Hotel central",image:"https://images.unsplash.com/photo-1589909202802-8f4aadce1849?auto=format&fit=crop&w=1200&q=88",description:"Uma escapada internacional com boa localização para aproveitar a cidade."},
+ {id:4,blackFriday:false,destination:"Porto Seguro",title:"Porto Seguro • férias em família",category:"Família",price:2190,period:"Datas demonstrativas",hotel:"Resort / hotel",image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=88",description:"Praia e estrutura para quem quer viajar em família com mais comodidade."},
+ {id:5,blackFriday:false,destination:"Patagônia",title:"Patagônia • natureza e aventura",category:"Aventura",price:5690,period:"Datas demonstrativas",hotel:"Hospedagem sob consulta",image:"https://images.unsplash.com/photo-1517825738774-7de9363ef735?auto=format&fit=crop&w=1200&q=88",description:"Uma experiência para quem procura paisagens marcantes e contato com a natureza."},
+ {id:6,blackFriday:true,destination:"Caribe",title:"Caribe • descanso à beira-mar",category:"Praia",price:4890,period:"Datas demonstrativas",hotel:"Resort demonstrativo",image:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=88",description:"Uma opção internacional focada em descanso, mar e experiência de resort."}
+];
+
+const grid=document.getElementById("grid");
+const empty=document.getElementById("empty");
+const searchInput=document.getElementById("searchInput");
+const categorySelect=document.getElementById("categorySelect");
+const overlay=document.getElementById("overlay");
+
+function money(v){
+ return new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0}).format(v);
+}
+function esc(v=""){
+ return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+}
+
+function render(){
+ const q=searchInput.value.trim().toLowerCase();
+ const cat=categorySelect.value;
+ const list=trips.filter(t=>
+   (!q||t.destination.toLowerCase().includes(q)||t.title.toLowerCase().includes(q)) &&
+   (!cat||t.category===cat) &&
+   (!blackFridayOnly || t.blackFriday)
+ );
+
+ grid.innerHTML=list.map(t=>`
+   <article class="card ${BLACK_FRIDAY_ACTIVE && t.blackFriday ? "black-card" : ""}" data-reveal>
+     <div class="card-img">
+       <img src="${esc(t.image)}" alt="${esc(t.destination)}">
+       <span class="badge">${BLACK_FRIDAY_ACTIVE && t.blackFriday ? "Black Friday • " : ""}${esc(t.category)}</span>
+     </div>
+     <div class="card-body">
+       <div class="dest">${esc(t.destination)}</div>
+       <h3>${esc(t.title)}</h3>
+       <div class="meta"><span>${esc(t.period)}</span><span>•</span><span>${esc(t.hotel)}</span></div>
+       <div class="card-footer">
+         <div class="price"><small>a partir de</small><strong>${money(t.price)}</strong></div>
+         <button class="interest" onclick="openTrip(${t.id})">Tenho interesse</button>
+       </div>
+     </div>
+   </article>`).join("");
+
+ empty.classList.toggle("hidden",list.length>0);
+ activateReveal();
+}
+
+window.openTrip=function(id){
+ const t=trips.find(x=>x.id===id);
+ if(!t)return;
+ dImage.src=t.image;dImage.alt=t.destination;
+ dDest.textContent=t.destination;dTitle.textContent=t.title;dDesc.textContent=t.description;
+ dPeriod.textContent=t.period;dHotel.textContent=t.hotel;dCat.textContent=t.category;dPrice.textContent=money(t.price);
+
+ const msg=`Olá! Vi no catálogo da Fidelity a viagem "${t.title}" a partir de ${money(t.price)} e gostaria de falar com um agente sobre disponibilidade e condições.`;
+ agentBtn.href=WHATSAPP_NUMBER?`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`:FALLBACK_CONTACT_URL;
+
+ overlay.classList.add("show");
+ document.body.classList.add("lock");
+}
+
+function closeDrawer(){
+ overlay.classList.remove("show");
+ document.body.classList.remove("lock");
+}
+document.getElementById("close").onclick=closeDrawer;
+overlay.addEventListener("click",e=>{if(e.target===overlay)closeDrawer()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer()});
+
+document.getElementById("searchBtn").onclick=()=>{blackFridayOnly=false;render()};
+searchInput.addEventListener("input",()=>{blackFridayOnly=false;render()});
+categorySelect.addEventListener("change",()=>{blackFridayOnly=false;syncChips();render()});
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+ blackFridayOnly=false;categorySelect.value=c.dataset.cat;syncChips();render();
+}));
+function syncChips(){
+ document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c.dataset.cat===categorySelect.value));
+}
+
+
+const blackFridayBlock = document.getElementById("blackFridayBlock");
+if(BLACK_FRIDAY_ACTIVE){
+  blackFridayBlock.classList.remove("hidden");
+}
+
+document.getElementById("bfSeeOffers").addEventListener("click",()=>{
+  blackFridayOnly = true;
+  searchInput.value = "";
+  categorySelect.value = "";
+  syncChips();
+  render();
+  document.getElementById("grid").scrollIntoView({behavior:"smooth",block:"start"});
+});
+
+function updateBlackFridayCountdown(){
+  if(!BLACK_FRIDAY_ACTIVE) return;
+
+  const year = today.getFullYear();
+  const nov30 = new Date(year,10,30,23,59,59);
+  const diff = nov30 - new Date();
+
+  if(diff <= 0){
+    document.getElementById("bfCountdown").innerHTML =
+      "<small>Período especial</small>Últimas oportunidades";
+    return;
+  }
+
+  const days = Math.ceil(diff / 86400000);
+  document.getElementById("bfCountdown").innerHTML =
+    `<small>Black Friday Fidelity</small>${days} dia${days===1?"":"s"} para acompanhar as ofertas`;
+}
+updateBlackFridayCountdown();
+
+
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{
+ if(e.isIntersecting){
+   e.target.classList.add("visible");
+   observer.unobserve(e.target);
+ }
+}),{threshold:.08,rootMargin:"0px 0px -5% 0px"});
+
+function activateReveal(){
+ const items=[...document.querySelectorAll("[data-reveal]:not(.visible)")];
+ items.forEach((el,index)=>{
+   if(el.classList.contains("card")){
+     const cardIndex=[...el.parentElement.children].indexOf(el);
+     el.style.setProperty("--reveal-delay",`${Math.min(cardIndex*70,350)}ms`);
+   }else{
+     el.style.setProperty("--reveal-delay",`${Math.min((index%4)*45,135)}ms`);
+   }
+   observer.observe(el);
+ });
+}
+
+window.addEventListener("scroll",()=>{
+ document.querySelector(".header")?.classList.toggle("scrolled",window.scrollY>18);
+},{passive:true});
+
+render();activateReveal();
+</script>
+</body>
+</html>
